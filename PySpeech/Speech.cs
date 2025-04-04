@@ -10,13 +10,6 @@ namespace PySpeech
         private static string bestMatch;
         private static double bestScore;
 
-        /// <summary>
-        /// Calculates the similarity score between a phrase and a recognized phrase.
-        /// Useful for simulating keyword or phrase detection behavior.
-        /// </summary>
-        /// <param name="phrase">The phrase to compare against.</param>
-        /// <param name="recognized">The recognized phrase to be compared.</param>
-        /// <returns>The similarity score between the recognized phrase and the provided phrase.</returns>
         internal static float GetSimilarity(string phrase, string recognized)
         {
             if (string.IsNullOrEmpty(phrase) || string.IsNullOrEmpty(recognized))
@@ -27,14 +20,9 @@ namespace PySpeech
 
             int distance = LevenshteinDistance(phrase, recognized);
             float similarity = (float)Math.Round(1.0 - (double)distance / maxLength, 2);
-            //if (Plugin.logging.Value) Plugin.mls.LogDebug($"Similarity between {phrase} and {recognized} is {similarity}");
             return similarity;
         }
 
-        /// <summary>
-        /// Finds the phrase with the highest similarity score compared to the recognized string.
-        /// </summary>
-        /// <param name="recognized">The input string to be matched.</param>
         internal static void GetBestMatch(string recognized)
         {
             float maxScore = float.MinValue;
@@ -52,7 +40,6 @@ namespace PySpeech
             bestScore = maxScore;
             if (Plugin.logging.Value)
             {
-                Plugin.mls.LogDebug($"Recognized: {recognized}");
                 Plugin.mls.LogDebug($"Best match: {bestMatch}");
                 Plugin.mls.LogDebug($"Best similarity score: {bestScore}");
             }

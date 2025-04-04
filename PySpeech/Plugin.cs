@@ -36,7 +36,7 @@ namespace PySpeech
 
             logging = Config.Bind(
                 "General", // Config section
-                "Show Python logs", // Key of this config
+                "Show logs", // Key of this config
                 true, // Default value
                 "Shows the speech recognition output" // Description
             );
@@ -45,7 +45,7 @@ namespace PySpeech
                 "General", // Config section
                 "Model", // Key of this config
                 Models.Tiny, // Default value
-                "Whisper model to be used for speech recognition.\n" +
+                "Whisper model to be used for speech recognition. You should use what the mod developers recommend.\n" +
                 "\nTiny: low delay, lower accuracy" +
                 "\nBase: medium delay, higher accuracy" +
                 "\nSmall: high delay, very high accuracy" // Description

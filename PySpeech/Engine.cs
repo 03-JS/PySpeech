@@ -38,7 +38,8 @@ namespace PySpeech
                         if (!string.IsNullOrEmpty(args.Data))
                         {
                             string recognized = args.Data.TrimStart(' ');
-                            Speech.GetBestMatch(recognized);
+                            if (Plugin.logging.Value) Plugin.mls.LogDebug($"Recognized: {recognized}");
+                            if (Speech.phrases.Count > 0) Speech.GetBestMatch(recognized);
                             UnityMainThreadDispatcher.Enqueue(() =>
                             {
                                 SpeechRecognized?.Invoke(Plugin.Instance, new SpeechEventArgs(recognized));
