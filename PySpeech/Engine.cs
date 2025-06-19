@@ -20,22 +20,14 @@ namespace PySpeech
 
             Plugin.mls.LogInfo("Starting Speech Recognition engine");
 
-            string fileName = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-                ? "wine"
-                : Plugin.Instance.Info.Location.TrimEnd("PySpeech.dll".ToCharArray()) + "pyexec/pyspeech.exe";
-            
-            string processArguments = RuntimeInformation.IsOSPlatform(OSPlatform.Linux)
-                ? $"\"{Plugin.Instance.Info.Location.TrimEnd("PySpeech.dll".ToCharArray())}pyexec/pyspeech.exe\" \"{Speech.languages[(int)Plugin.language.Value]}\" \"{models[(int)Plugin.model.Value]}\""
-                : $"\"{Speech.languages[(int)Plugin.language.Value]}\" \"{models[(int)Plugin.model.Value]}\"";
-
             ProcessStartInfo psi = new ProcessStartInfo
             {
-                FileName = fileName,
-                Arguments = processArguments,
+                FileName = Plugin.Instance.Info.Location.TrimEnd("PySpeech.dll".ToCharArray()) + "pyexec/pyspeech.exe",
+                Arguments = $"\"{Speech.languages[(int)Plugin.language.Value]}\" \"{models[(int)Plugin.model.Value]}\"",
                 RedirectStandardOutput = true, // Capture output
                 RedirectStandardError = true, // Capture errors
                 UseShellExecute = false,
-                CreateNoWindow = true
+                CreateNoWindow = false
             };
 
             using (Process pyProcess = new Process { StartInfo = psi, EnableRaisingEvents = true })
